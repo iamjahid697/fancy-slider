@@ -161,13 +161,5 @@ const spinners = (loading) => {
   
 }
 
-// function goBack() {
-//   window.history.back();
-//   // console.log('Back');
-// }
-// function goForward() {
-//   window.history.forward();
-//   // console.log('Forward');
-// }
 var d = new Date();
 document.getElementById("date").innerHTML = d;
