@@ -25,11 +25,13 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+    
   })
-
+  spinners(false);
 }
 
 const getImages = (query) => {
+  spinners(true);
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -69,27 +71,33 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  let duration = document.getElementById('duration').value || 1000;
+  duration = parseFloat(duration);
 
   if(duration < 0){
     alert('Please enter e positive number');
     return ;
   }
-  if(duration >= 0 && duration < 1000){
+  
+  if(duration >=0 && duration <1000){
     duration += 1000;
-    createSlider();
+    makeSlide();
   }
-  if(duration >= 1000){
-    createSlider();
+  if (duration >= 1000) {
+    makeSlide();
   }
-    sliders.forEach(slide => {
-      let item = document.createElement('div')
-      item.className = "slider-item";
-      item.innerHTML = `<img class="w-100"
+  
+  
+        function makeSlide(){
+          sliders.forEach(slide => {
+            let item = document.createElement('div')
+            item.className = "slider-item";
+            item.innerHTML = `<img class="w-100"
     src="${slide}"
     alt="">`;
-      sliderContainer.appendChild(item)
-    })
+            sliderContainer.appendChild(item)
+          })
+        }
 
   changeSlide(0)
   timer = setInterval(function () {
@@ -140,3 +148,23 @@ document.getElementById('search').addEventListener('keypress',function( event){
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+const spinners = (loading) => {
+  const spinner = document.getElementById('toggle-spinner');
+  if(loading){
+    spinner.classList.remove('d-none');
+  }
+  else{
+    spinner.classList.add('d-none');
+  }
+  
+}
+
+function goBack() {
+  window.history.back();
+  // console.log('Back');
+}
+function goForward() {
+  window.history.forward();
+  // console.log('Forward');
+}
