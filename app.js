@@ -36,6 +36,7 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
+
 }
 
 let slideIndex = 0;
@@ -160,11 +161,13 @@ const spinners = (loading) => {
   
 }
 
-function goBack() {
-  window.history.back();
-  // console.log('Back');
-}
-function goForward() {
-  window.history.forward();
-  // console.log('Forward');
-}
+// function goBack() {
+//   window.history.back();
+//   // console.log('Back');
+// }
+// function goForward() {
+//   window.history.forward();
+//   // console.log('Forward');
+// }
+var d = new Date();
+document.getElementById("date").innerHTML = d;
